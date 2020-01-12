@@ -1,16 +1,17 @@
-pub(crate) const SIZE: usize = 10000000 ;
-//pub(crate) const SIZE: usize = 100000000;
+//pub(crate) const SIZE: usize = 1000000 ;
+pub(crate) const SIZE: usize = 100000000;
 
 use std::time::Instant;
 use std::thread;
 
 fn main() {
     let builder = thread::Builder::new().name("largeStack".into()).stack_size(2*1024*1024*1024);
+    let overall_start = Instant::now();
     let handler = builder.spawn(move || {
         find_prime();    
     }).unwrap();
     handler.join().unwrap();
-    
+    println!("{:?}", overall_start.elapsed());
 
 }
 fn find_prime() {
@@ -45,7 +46,7 @@ let mut process_duration_array = start.elapsed();
 */
         let mut prime = true;
 process_duration_prime = start.elapsed();
-
+let stop_index = (index as f64).sqrt() as u32 + 1;
 start = Instant::now();
         for i in {0..count} {
             
@@ -53,7 +54,7 @@ start = Instant::now();
                 prime = false;
                 break;
             }
-            if index/2<p[i] {break;}
+            if stop_index<p[i] {break;}
         }
 process_duration_backward = start.elapsed();
 
